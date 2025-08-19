@@ -43,12 +43,9 @@ export default function FaceExpression() {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center gap-5">
-      <video ref={videoRef} autoPlay muted className="h-fit w-100" />
-      <button
-        onClick={handleVideoPlay} 
-        className="h-fit text-white font-bold px-3 py-2 rounded-md bg-teal-800 hover:bg-teal-700 active:scale-95"
-      >
+    <div className="flex justify-center items-center gap-5 mt-5">
+      <video ref={videoRef} autoPlay muted className="h-fit w-50 rounded-2xl" />
+      <button onClick={handleVideoPlay} className="h-fit text-white font-bold px-3 py-2 rounded-md bg-teal-800 hover:bg-teal-700 active:scale-95">
         Detect Expression
       </button>
     </div>

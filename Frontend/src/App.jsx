@@ -1,12 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import FaceExpression from "./Components/getExpression";
 import MoodSongs from "./Components/moodSongs";
 
 const App = () => {
+  const[Songs, setSongs] = useState([]);
+  
   return (
     <div>
-      <FaceExpression />
-      <MoodSongs />
+      <FaceExpression setSongs={setSongs} />
+      <MoodSongs Songs={Songs} />
     </div>
   );
 };

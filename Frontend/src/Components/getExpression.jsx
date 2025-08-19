@@ -1,7 +1,11 @@
 import { useRef, useEffect } from "react";
 import * as faceapi from "face-api.js";
+import { getSongs } from "../axiosConfig";
 
-export default function FaceExpression() {
+export default function FaceExpression({setSongs}) {
+
+  // const{ setSong } = setSongs;
+
   const videoRef = useRef();
 
   const loadModels = async () => {
@@ -34,18 +38,28 @@ export default function FaceExpression() {
         expressions[a] > expressions[b] ? a : b
       );
       console.log(maxExpression);
+
+      var song = await getSongs.get("/songs", {
+        params: { mood: maxExpression }
+      });
+
+      console.log("Songs : ", song.data.songs);
       
-      // console.log("Expressions:", detections[0].expressions);
+      setSongs(song.data.songs)
 
     } else {
       console.log("Face not recognized!");
+      alert("face not detected!");
     }
   };
 
   return (
     <div className="flex justify-center items-center gap-5 mt-5">
       <video ref={videoRef} autoPlay muted className="h-fit w-50 rounded-2xl" />
-      <button onClick={handleVideoPlay} className="h-fit text-white font-bold px-3 py-2 rounded-md bg-teal-800 hover:bg-teal-700 active:scale-95">
+      <button
+        onClick={handleVideoPlay}
+        className="h-fit text-white font-bold px-3 py-2 rounded-md bg-teal-800 hover:bg-teal-700 active:scale-95"
+      >
         Detect Expression
       </button>
     </div>

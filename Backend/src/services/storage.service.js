@@ -11,7 +11,6 @@ var ImageKit = require("imagekit");
 
 var imagekit = new ImageKit({
   publicKey: "public_631+e128gPQYHdgLFqJWql0rx5Q=",
-  privateKey: "private_WI+Fu1lMgFTCfMoZ75fpbqcYBo4=",
   urlEndpoint: "https://ik.imagekit.io/6i2qiqf2n",
 });
 

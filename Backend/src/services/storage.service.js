@@ -1,4 +1,4 @@
-var ImageKit = require("imagekit");
+import ImageKit from "imagekit";
 
 // var imagekit = new ImageKit({
 //     publicKey : process.env.IMAGEKIT_PUBLIC_KEY,
@@ -10,8 +10,9 @@ var ImageKit = require("imagekit");
 
 
 var imagekit = new ImageKit({
-  publicKey: "public_631+e128gPQYHdgLFqJWql0rx5Q=",
-  urlEndpoint: "https://ik.imagekit.io/6i2qiqf2n",
+  publicKey: "public_Yu427TLvjC2Jd7Hw5WNwlDk6LOE=",
+  urlEndpoint: "https://ik.imagekit.io/aman5613",
+  privateKey: "private_AB02AvOmoJGJh/4fjxgDly9aTdA=",
 });
 
 function uploadFile(file) {
@@ -34,4 +35,4 @@ function uploadFile(file) {
   });
 }
 
-module.exports = uploadFile;
+export default uploadFile;

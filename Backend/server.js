@@ -1,7 +1,9 @@
-const app = require("./src/app");
-const connectToDB = require("./src/DB/db.connction");
-const songRoute = require("./src/routers/song.router");
-require('dotenv').config()
+import app from "./src/app.js"
+import connectToDB from "./src/DB/db.connction.js";
+import songRoute from "./src/routers/song.router.js"
+import dotenv from 'dotenv'
+
+dotenv.config();
 
 const port = process.env.PORT || 4000
 

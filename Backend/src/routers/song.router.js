@@ -10,9 +10,63 @@ const router = express.Router();
 const upload = multer({ storage: multer.memoryStorage() });
 
 //  song ko database me add karne ke route hai
-router.post("/song", upload.single("audio"), async (req, res) => {
-  // const{title, artist, mood} = req.body  // destructering
+router.post("/addsong", upload.single("audio"), async (req, res) => {
+  const { title, artist, mood } = req.body;
+  const audio = req.file;
+  if(!audio){
+    return res.status(400).json({
+      message: "Audio file is required",
+      error: true,
+      success: false,
+    });
+  }
+  try {
+    await uploadFile(audio)
+      .then(async (resp) => {
+        await songModel
+          .create({
+            title,
+            artist,
+            audio: resp.url,
+            mood,
+          })
+          .then((song) => {
+            return res.status(200).json({
+              message: "Song added successfully!",
+              song: song,
+              error: false,
+              success: true,
+            });
+          })
+          .catch((err) => {
+            return res.status(500).json({
+              message: "Error in adding song" + (err?.message || err),
+              error: true,
+              success: false,
+            });
+          });
+      })
+      .catch((err) => {
+        console.log("Error in uploading file : ", err.message || err);
+        return res.status(500).json({
+          message: "Error in uploading file",
+          error: err.message || err,
+        });
+      });
 
+    console.log(mood);
+
+  } catch (error) {
+    return res.status(500).json({
+      message: "Error in adding song" + (error?.message || error),
+      error: true,
+      success: false,
+    });
+  }
+});
+
+// song ka mood, title and artist detect karne ke route hai
+router.post("/uploadsong", upload.single("audio"), async (req, res) => {
   const formatAIResponse = (responseText) => {
     // Remove markdown code block
     const cleaned = responseText
@@ -27,46 +81,21 @@ router.post("/song", upload.single("audio"), async (req, res) => {
   // console.log(req.file);
   await detectEmotion(req.file.buffer)
     .then((resp) => {
-    //   console.log(res);
+      console.log(resp?.candidates[0]?.content?.parts[0]);
       return res.status(200).json({
         message: "Mood detected successfully",
         mood: formatAIResponse(resp?.candidates[0]?.content?.parts[0].text),
       });
     })
     .catch((err) => {
-    //   console.log("Error in getting mood : ", err.message || err);
+      console.log("Error in getting mood : ", err.message || err);
       return res.status(500).json({
         message: "Error in getting mood",
         error: err.message || err,
       });
     });
 
-//   await uploadFile(req.file).then(async (resp) => {
-//     console.log(resp.url);
-    
-//   })
-//   .catch((err) => {
-//     console.log("Error in uploading file : ", err.message || err);
-//     return res.status(500).json({
-//       message: "Error in uploading file",
-//       error: err.message || err,
-//     });
-//   })
-
-  // console.log(mood);
-
-  // database me data ko add kar rhe hai
-  // await songModel.create({
-  //     title,
-  //     artist,
-  //     "Audio" : audio.url,
-  //     mood
-  // })
-
-//   res.status(200).json({
-//     message: "Song added successfully!",
-//     audio: audio,
-//   });
+  //
 });
 
 // song ko frontend pe show karne ke liye

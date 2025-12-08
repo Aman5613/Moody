@@ -3,7 +3,7 @@ import mongoose from 'mongoose'
 const songSchema = mongoose.Schema({
     title : String,
     artist : String,
-    Audio : String,
+    audio : String,
     mood : String
 })
 

@@ -1,7 +1,7 @@
 import { GoogleGenAI } from "@google/genai";
 
 const ai = new GoogleGenAI({
-  // apiKey: "AIzaSyBy7XbyRcv9OoouL2T_C_f4JQsselX6bsI",
+  apiKey: "AIzaSyCy0E2SFt1uQv9vhdWKBr48uBBhZKR7t8M",
 });
 
 const detectEmotion = async (bufferFile) => {

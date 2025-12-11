@@ -11,12 +11,12 @@ const port = process.env.PORT || 4000
 
 connectToDB();
 
-app.use('/', songRoute)
+app.use('/api', songRoute)
 
 
-app.get('/', (req,res) => [
+app.get('/', (req,res) => {
     res.send("working fine!")
-])
+})
 
 
 app.listen(port, () => {

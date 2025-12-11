@@ -7,7 +7,7 @@ express().use(express.json());
 
 const router = express.Router();
 
-const upload = multer({ storage: multer.memoryStorage() });
+const upload = multer({ storage: multer.memoryStorage() });  // muulter middleware for handling multipart/form-data
 
 //  song ko database me add karne ke route hai
 router.post("/addsong", upload.single("audio"), async (req, res) => {
@@ -47,14 +47,14 @@ router.post("/addsong", upload.single("audio"), async (req, res) => {
           });
       })
       .catch((err) => {
-        console.log("Error in uploading file : ", err.message || err);
+        // console.log("Error in uploading file : ", err.message || err);
         return res.status(500).json({
           message: "Error in uploading file",
           error: err.message || err,
         });
       });
 
-    console.log(mood);
+    // console.log(mood);
 
   } catch (error) {
     return res.status(500).json({
@@ -81,14 +81,14 @@ router.post("/uploadsong", upload.single("audio"), async (req, res) => {
   // console.log(req.file);
   await detectEmotion(req.file.buffer)
     .then((resp) => {
-      console.log(resp?.candidates[0]?.content?.parts[0]);
+      // console.log(resp?.candidates[0]?.content?.parts[0]);
       return res.status(200).json({
         message: "Mood detected successfully",
         mood: formatAIResponse(resp?.candidates[0]?.content?.parts[0].text),
       });
     })
     .catch((err) => {
-      console.log("Error in getting mood : ", err.message || err);
+      // console.log("Error in getting mood : ", err.message || err);
       return res.status(500).json({
         message: "Error in getting mood",
         error: err.message || err,

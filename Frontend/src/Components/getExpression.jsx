@@ -20,7 +20,7 @@ export default function FaceExpression({setSongs}) {
       .then((stream) => {
         videoRef.current.srcObject = stream;
       })
-      .catch((err) => console.error(err));
+      .catch((err) => toast.error(err));
   };
 
   useEffect(() => {
@@ -40,14 +40,14 @@ export default function FaceExpression({setSongs}) {
       // console.log(maxExpression);
       toast.success(`Detected expression: ${maxExpression}`);
 
-      await getSongs.get("/songs", {
+      await getSongs.get("/api/songs", {
         params: { mood: maxExpression }
       }).then((song) => {
-        console.log(song.data);
+        // console.log(song.data);
         setSongs(song.data.songs);
         toast.success(`Song recommended based on your mood!`);
       }).catch((err) => {
-        console.log("Error in fetching songs : ", err.message || err);
+        // console.log("Error in fetching songs : ", err.message || err);
         toast.error('Error in fetching songs ', err.message || err);
       })
 

@@ -9,10 +9,11 @@ import ImageKit from "imagekit";
 
 
 
+// you can get these keys from your ImageKit dashboard
 var imagekit = new ImageKit({
-  publicKey: "public_Yu427TLvjC2Jd7Hw5WNwlDk6LOE=",
-  urlEndpoint: "https://ik.imagekit.io/aman5613",
-  privateKey: "private_AB02AvOmoJGJh/4fjxgDly9aTdA=",
+  publicKey: "",
+  urlEndpoint: "",
+  privateKey: "",
 });
 
 function uploadFile(file) {

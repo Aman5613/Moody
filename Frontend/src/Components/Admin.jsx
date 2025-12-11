@@ -38,9 +38,9 @@ const Admin = ({close}) => {
     formData.append("audio", file);
     // console.log("Song Selected: ", file);
     await getSongs
-      .post("/uploadsong", formData)
+      .post("/api/uploadsong", formData)
       .then((resp) => {
-        console.log("Song Uploaded: ", resp.data.mood);
+        // console.log("Song Uploaded: ", resp.data.mood);
         setsongDetails({
           emotion: resp.data.mood.emotion,
           title: resp.data.mood.title,
@@ -50,7 +50,7 @@ const Admin = ({close}) => {
         setsongLoading(false);
       })
       .catch((err) => {
-        console.log("Error in uploading song: ", err?.message);
+        // console.log("Error in uploading song: ", err?.message);
         toast.error("Error in uploading song! " + (err?.message || ""));
         setsongLoading(false);
       });
@@ -71,11 +71,11 @@ const Admin = ({close}) => {
     formData.append("mood", songdetails.emotion);
 
     await getSongs
-      .post("/addsong", formData)
+      .post("/api/addsong", formData)
       .then((resp) => {
         if (resp.data.success) {
           toast.success("Song added successfully!");
-          console.log(resp.data);
+          // console.log(resp.data);
           setaddSongLoading(false);
           e.target.reset();
           setsongDetails({
@@ -85,12 +85,12 @@ const Admin = ({close}) => {
           });
         } else {
           toast.error("Error in adding song! " + (resp.data.message || ""));
-          console.log("Error in adding song: ", resp.data);
+          // console.log("Error in adding song: ", resp.data);
         }
       })
       .catch((err) => {
         toast.error("Error in adding song! " + (err?.message || ""));
-        console.log("Error in adding song: ", err);
+        // console.log("Error in adding song: ", err);
       });
   };
 
